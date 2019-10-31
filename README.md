@@ -7,6 +7,8 @@ Sample source code of a WPF application using ReactiveUI.Validation with just XA
 * [Material Design sample](01-Basic-XAML)  
 Sample source code of a WPF application using ReactiveUI.Validation and MaterialDesign for better UI.
 
+![](MaterialDesign-Capture-01.png)
+
 ## Notes / Current Issues
 * Code behind binding with ReactiveUI this.Bind does not work with WPF. Binding must be done in XAML. Hopefully this will be solved in the future. https://reactivex.slack.com/archives/C02AJB872/p1571739816086600?thread_ts=1571711238.085100
 

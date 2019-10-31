@@ -37,7 +37,7 @@ namespace ReactiveUIValidationSample
                 lastName => !string.IsNullOrWhiteSpace(lastName), "You must specify a valid last name");
 
 
-            // NOTE: Only the first ValidationRule get's shown the first time the Windows is displayed.
+            // NOTE: Only the first ValidationRule get's shown the first time the Window is displayed.
         }
     }
 }

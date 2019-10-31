@@ -41,7 +41,7 @@ namespace ReactiveUIValidationSample
 
                 // Validation extension methods. They are not working as expected or I'm using them in the wrong way...
                 // Binding to a TextBlock text I get errors concatenated. Tried with ListView, etc with no luck.
-                this.BindValidation(ViewModel, view => view.ErrorsTextBlock.Text).DisposeWith(disposableRegistration);
+                //this.BindValidation(ViewModel, view => view.ErrorsTextBlock.Text).DisposeWith(disposableRegistration);
 
                 // Validation extension methods. They are not working as expected or I'm using them in the wrong way...
                 // Getting System.ArgumentOutOfRangeException: 'Index was out of range. Must be non-negative and less than the size of the collection. Parameter name: index'
