@@ -26,6 +26,8 @@ namespace ReactiveUIValidationSample
 
             Save = ReactiveCommand.Create(() => { SaveResult = $"{LastName.ToUpperInvariant()}, {FirstName}"; }, canSave);
 
+            // TODO: Add some optional Supression for ErrorsChanged here with a flag so Windows loads without errors
+
             // Validation rules
             this.ValidationRule(viewModel => viewModel.FirstName,
                 firstName => !string.IsNullOrWhiteSpace(firstName), "You must specify a valid first name");
@@ -36,6 +38,7 @@ namespace ReactiveUIValidationSample
             this.ValidationRule(viewModel => viewModel.LastName,
                 lastName => !string.IsNullOrWhiteSpace(lastName), "You must specify a valid last name");
 
+            // TODO: Enable ErrorsChanged now so notification works after user makes changes to fields
 
             // NOTE: Only the first ValidationRule get's shown the first time the Window is displayed.
         }
