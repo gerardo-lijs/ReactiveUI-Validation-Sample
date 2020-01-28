@@ -19,7 +19,7 @@ namespace ReactiveUIValidationSample
 
         public ReactiveCommand<Unit, Unit> Save { get; }
 
-        public MainViewModel()
+        public MainViewModel() : base(RxApp.TaskpoolScheduler)
         {
             // IsValid extension method returns true when all validations succeed.
             var canSave = this.IsValid();

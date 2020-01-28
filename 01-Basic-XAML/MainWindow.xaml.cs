@@ -29,7 +29,7 @@ namespace ReactiveUIValidationSample
             ViewModel = new MainViewModel();
             this.WhenActivated(disposableRegistration =>
             {
-                this.WhenAnyValue(viewModel => viewModel.ViewModel).BindTo(this, view => view.DataContext).DisposeWith(disposableRegistration);
+                this.WhenAnyValue(view => view.ViewModel).BindTo(this, view => view.DataContext).DisposeWith(disposableRegistration);
 
                 this.Bind(ViewModel, viewModel => viewModel.SaveResult, view => view.SaveResultTextBlock.Text).DisposeWith(disposableRegistration);
                 this.BindCommand(ViewModel, viewModel => viewModel.Save, view => view.SaveButton).DisposeWith(disposableRegistration);
@@ -48,6 +48,9 @@ namespace ReactiveUIValidationSample
                 // in the second call to BindValidation on a different Property
                 //this.BindValidation(ViewModel, viewModel => viewModel.FirstName, view => view.FirstNameTextBox.ToolTip).DisposeWith(disposableRegistration);
                 //this.BindValidation(ViewModel, viewModel => viewModel.LastName, view => view.LastNameTextBox.ToolTip).DisposeWith(disposableRegistration);
+
+                this.BindValidationToToolTip(ViewModel, viewModel => viewModel.FirstName, view => view.FirstNameTextBox).DisposeWith(disposableRegistration);
+                this.BindValidationToToolTip(ViewModel, viewModel => viewModel.LastName, view => view.LastNameTextBox).DisposeWith(disposableRegistration);
             });
         }
     }
