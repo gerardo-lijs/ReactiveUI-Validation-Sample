@@ -1,40 +1,38 @@
-﻿using ReactiveUI;
+namespace ReactiveUIValidationSample;
+
+using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
+using ReactiveUI.Validation.Abstractions;
+using ReactiveUI.Validation.Contexts;
 using ReactiveUI.Validation.Extensions;
-using ReactiveUI.Validation.Helpers;
-using System;
-using System.Collections.Generic;
 using System.Reactive;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace ReactiveUIValidationSample
+public class MainViewModel : ReactiveObject, IValidatableViewModel
 {
-    public class MainViewModel : ReactiveValidationObject<MainViewModel>
+    [Reactive] public string FirstName { get; set; }
+    [Reactive] public string LastName { get; set; }
+
+    [Reactive] public string SaveResult { get; set; }
+
+    public ReactiveCommand<Unit, Unit> Save { get; }
+
+    public ValidationContext ValidationContext { get; } = new ValidationContext();
+
+    public MainViewModel()
     {
-        [Reactive] public string FirstName { get; set; }
-        [Reactive] public string LastName { get; set; }
+        // IsValid extension method returns true when all validations succeed.
+        var canSave = this.IsValid();
 
-        [Reactive] public string SaveResult { get; set; }
+        Save = ReactiveCommand.Create(() => { SaveResult = $"{LastName.ToUpperInvariant()}, {FirstName}"; }, canSave);
 
-        public ReactiveCommand<Unit, Unit> Save { get; }
+        // Validation rules
+        this.ValidationRule(viewModel => viewModel.FirstName,
+            firstName => !string.IsNullOrWhiteSpace(firstName), "You must specify a valid first name");
 
-        public MainViewModel()
-        {
-            // IsValid extension method returns true when all validations succeed.
-            var canSave = this.IsValid();
+        this.ValidationRule(viewModel => viewModel.FirstName,
+            firstName => firstName?.Length >= 5, "First name must have at least five characters");
 
-            Save = ReactiveCommand.Create(() => { SaveResult = $"{LastName.ToUpperInvariant()}, {FirstName}"; }, canSave);
-
-            // Validation rules
-            this.ValidationRule(viewModel => viewModel.FirstName,
-                firstName => !string.IsNullOrWhiteSpace(firstName), "You must specify a valid first name");
-
-            this.ValidationRule(viewModel => viewModel.FirstName,
-                firstName => firstName?.Length >= 5, "First name must have at least five characters");
-
-            this.ValidationRule(viewModel => viewModel.LastName,
-                lastName => !string.IsNullOrWhiteSpace(lastName), "You must specify a valid last name");
-        }
+        this.ValidationRule(viewModel => viewModel.LastName,
+            lastName => !string.IsNullOrWhiteSpace(lastName), "You must specify a valid last name");
     }
 }
