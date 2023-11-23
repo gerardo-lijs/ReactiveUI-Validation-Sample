@@ -1,16 +1,13 @@
 ﻿using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
+using ReactiveUI.Validation.Abstractions;
+using ReactiveUI.Validation.Contexts;
 using ReactiveUI.Validation.Extensions;
-using ReactiveUI.Validation.Helpers;
-using System;
-using System.Collections.Generic;
 using System.Reactive;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ReactiveUIValidationSample
 {
-    public class MainViewModel : ReactiveValidationObject<MainViewModel>
+    public class MainViewModel : ReactiveObject, IValidatableViewModel
     {
         [Reactive] public string FirstName { get; set; }
         [Reactive] public string LastName { get; set; }
@@ -18,6 +15,8 @@ namespace ReactiveUIValidationSample
         [Reactive] public string SaveResult { get; set; }
 
         public ReactiveCommand<Unit, Unit> Save { get; }
+
+        public ValidationContext ValidationContext { get; } = new ValidationContext();
 
         public MainViewModel()
         {

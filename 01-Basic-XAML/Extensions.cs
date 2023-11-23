@@ -1,6 +1,7 @@
 ﻿using ReactiveUI;
 using ReactiveUI.Validation.Abstractions;
 using ReactiveUI.Validation.Components;
+using ReactiveUI.Validation.Extensions;
 using System;
 using System.Linq;
 using System.Linq.Expressions;
