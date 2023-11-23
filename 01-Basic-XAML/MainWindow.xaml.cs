@@ -1,7 +1,9 @@
-﻿namespace ReactiveUIValidationSample;
+namespace ReactiveUIValidationSample;
 
 using ReactiveUI;
 using ReactiveUI.Validation.Extensions;
+using ReactiveUI.Validation.Formatters;
+using System;
 using System.Reactive.Disposables;
 
 public partial class MainWindow : ReactiveWindow<MainViewModel>
@@ -14,7 +16,7 @@ public partial class MainWindow : ReactiveWindow<MainViewModel>
         {
             this.WhenAnyValue(view => view.ViewModel).BindTo(this, view => view.DataContext).DisposeWith(disposableRegistration);
 
-            this.Bind(ViewModel, viewModel => viewModel.SaveResult, view => view.SaveResultTextBlock.Text).DisposeWith(disposableRegistration);
+            this.OneWayBind(ViewModel, viewModel => viewModel.SaveResult, view => view.SaveResultTextBlock.Text).DisposeWith(disposableRegistration);
             this.BindCommand(ViewModel, viewModel => viewModel.Save, view => view.SaveButton).DisposeWith(disposableRegistration);
 
             // 2019-10-31 - For Validation to work in WPF with ReactiveUI, we can't use code behind bindings. We need to bind in XAML.
@@ -22,9 +24,9 @@ public partial class MainWindow : ReactiveWindow<MainViewModel>
             //this.Bind(ViewModel, viewModel => viewModel.FirstName, view => view.FirstNameTextBox.Text).DisposeWith(disposableRegistration);
             //this.Bind(ViewModel, viewModel => viewModel.LastName, view => view.LastNameTextBox.Text).DisposeWith(disposableRegistration);
 
-            // Validation extension methods. They are not working as expected or I'm using them in the wrong way...
-            // Binding to a TextBlock text I get errors concatenated. Tried with ListView, etc with no luck.
-            this.BindValidation(ViewModel, view => view.ErrorsTextBlock.Text).DisposeWith(disposableRegistration);
+            // Validation summary
+            var formatter = new SingleLineFormatter(Environment.NewLine);
+            this.BindValidation(ViewModel, view => view.ErrorsTextBlock.Text, formatter).DisposeWith(disposableRegistration);
 
             // Validation extension methods. They are not working as expected or I'm using them in the wrong way...
             // Getting System.ArgumentOutOfRangeException: 'Index was out of range. Must be non-negative and less than the size of the collection. Parameter name: index'

@@ -9,7 +9,7 @@
     xmlns:reactiveui="http://reactiveui.net"
     Title="MainWindow"
     Width="530"
-    Height="430"
+    Height="500"
     d:DataContext="{d:DesignInstance Type=local:MainViewModel,
                                      IsDesignTimeCreatable=true}"
     x:TypeArguments="local:MainViewModel"
@@ -50,7 +50,9 @@
                     Margin="10,20,10,10"
                     Foreground="Red"
                     TextWrapping="Wrap" />
+
             </StackPanel>
         </materialDesign:Card>
+
     </Grid>
 </reactiveui:ReactiveWindow>
