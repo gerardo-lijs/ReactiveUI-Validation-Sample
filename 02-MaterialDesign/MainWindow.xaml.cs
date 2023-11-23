@@ -1,6 +1,7 @@
 namespace ReactiveUIValidationSample;
 
 using ReactiveUI;
+using ReactiveUI.Validation.Extensions;
 using System.Reactive.Disposables;
 
 public partial class MainWindow : ReactiveWindow<MainViewModel>
